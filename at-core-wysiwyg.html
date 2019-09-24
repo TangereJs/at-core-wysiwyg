@@ -1,4 +1,5 @@
 <link rel="import" href="../at-core-style-classes/at-core-style-classes.html">
+<link rel="import" href="../at-form-codemirror/at-form-codemirror.html">
 
 <dom-module id="at-core-wysiwyg">
   <template>
@@ -70,24 +71,24 @@
             <path d="M3,4H5V10H9V4H11V18H9V12H5V18H3V4M21,18H15A2,2 0 0,1 13,16C13,15.47 13.2,15 13.54,14.64L18.41,9.41C18.78,9.05 19,8.55 19,8A2,2 0 0,0 17,6A2,2 0 0,0 15,8H13A4,4 0 0,1 17,4A4,4 0 0,1 21,8C21,9.1 20.55,10.1 19.83,10.83L15,16H21V18Z" />
           </svg>
         </button>
-        <span class="vertical-break" id="verticalBreak"></span>
-        <button name="bold">
+        <span class="vertical-break" id="verticalBreak1"></span>
+        <button name="bold" id="bold">
           <svg>
             <path d="M13.5,15.5H10V12.5H13.5A1.5,1.5 0 0,1 15,14A1.5,1.5 0 0,1 13.5,15.5M10,6.5H13A1.5,1.5 0 0,1 14.5,8A1.5,1.5 0 0,1 13,9.5H10M15.6,10.79C16.57,10.11 17.25,9 17.25,8C17.25,5.74 15.5,4 13.25,4H7V18H14.04C16.14,18 17.75,16.3 17.75,14.21C17.75,12.69 16.89,11.39 15.6,10.79Z" />
           </svg>
         </button>
-        <button name="italic">
+        <button name="italic" id="italic">
           <svg>
             <path d="M10,4V7H12.21L8.79,15H6V18H14V15H11.79L15.21,7H18V4H10Z" />
           </svg>
         </button>
-        <button name="underline">
+        <button name="underline" id="underline">
           <svg>
             <path d="M5,21H19V19H5V21M12,17A6,6 0 0,0 18,11V3H15.5V11A3.5,3.5 0 0,1 12,14.5A3.5,3.5 0 0,1 8.5,11V3H6V11A6,6 0 0,0 12,17Z" />
           </svg>
         </button>
-        <span class="vertical-break"></span>
-        <button name="justifyLeft" id="jusitfyLeft">
+        <span class="vertical-break" id="verticalBreak2"></span>
+        <button name="justifyLeft" id="justifyLeft">
           <svg>
             <path d="M3,3H21V5H3V3M3,7H15V9H3V7M3,11H21V13H3V11M3,15H15V17H3V15M3,19H21V21H3V19Z" />
           </svg>
@@ -102,23 +103,23 @@
             <path d="M3,3H21V5H3V3M9,7H21V9H9V7M3,11H21V13H3V11M9,15H21V17H9V15M3,19H21V21H3V19Z" />
           </svg>
         </button>
-        <button name="justifyFull">
+        <button name="justifyFull" id="justifyFull">
           <svg>
             <path d="M3,3H21V5H3V3M3,7H21V9H3V7M3,11H21V13H3V11M3,15H21V17H3V15M3,19H21V21H3V19Z" />
           </svg>
         </button>
-        <span class="vertical-break"></span>
-        <button name="insertUnorderedList">
+        <span class="vertical-break" id="verticalBreak3"></span>
+        <button name="insertUnorderedList" id="insertUnorderedList">
           <svg>
             <path d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z" />
           </svg>
         </button>
-        <button name="insertOrderedList">
+        <button name="insertOrderedList" id="insertOrderedList">
           <svg>
             <path d="M7,13H21V11H7M7,19H21V17H7M7,7H21V5H7M2,11H3.8L2,13.1V14H5V13H3.2L5,10.9V10H2M3,8H4V4H2V5H3M2,17H4V17.5H3V18.5H4V19H2V20H5V16H2V17Z" />
           </svg>
         </button>
-        <span class="vertical-break"></span>
+        <span class="vertical-break" id="verticalBreak4"></span>
         <button name="image" id="image">
           <svg>
             <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
@@ -129,7 +130,7 @@
             <path d="M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z" />
           </svg>
         </button>
-        <button name="clear-format">
+        <button name="clear-format" id="clearFormat">
           <svg>
             <path d="M6,5V5.18L8.82,8H11.22L10.5,9.68L12.6,11.78L14.21,8H20V5H6M3.27,5L2,6.27L8.97,13.24L6.5,19H9.5L11.07,15.34L16.73,21L18,19.73L3.55,5.27L3.27,5Z" />
           </svg>
@@ -144,7 +145,7 @@
       </div>
     </div>
     
-    <at-form-codemirror id="codemirror" class="hidden font-body1" mode="htmlmixed" on-value-changed="_codeMirrorValueChangedHandler"></at-form-codemirror>
+    <at-form-codemirror id="codemirror" class="hidden font-body1" mode="htmlmixed" disabled="[[disabled]]" value="[[value]]" on-value-changed="_codeMirrorValueChangedHandler"></at-form-codemirror>
 
 
 
@@ -155,10 +156,11 @@
       is: 'at-core-wysiwyg',
 
       properties: {
-        bodyText: {
+        value: {
           type: String,
           notify: true,
-          value: ''
+          value: '',
+          observer: "_valueChanged"
         },
 
         toolbarMode: {
@@ -180,7 +182,8 @@
 
         allowHtmlSourceEdit: {
           type: Boolean,
-          value: false
+          value: false,
+          observer: '_allowHtmlSourceEditChanged'
         }
 
       },
@@ -192,9 +195,9 @@
           this.listen(element, 'tap', '_actionPressed');
         }, this);
 
-        if (this.bodyText) editorBody.innerText = this.bodyText;
+        if (this.value) editorBody.innerText = this.value;
 
-        this.bodyText = editorBody.innerHTML;
+        this.value = editorBody.innerHTML;
         this._codeMirrorHidden = true;
       },
 
@@ -207,15 +210,6 @@
         } else {
           return this.$.editorBody.innerHTML;
         }
-      },
-
-      reset: function() {
-        this.set('editorBody.innerText', '');
-      },
-
-      setInnerHtmlValue: function(innerHtmlValue) {
-        this.$.editorBody.innerHTML = innerHtmlValue;
-        this._setBodyTextFromInnerHtml();
       },
 
       focusEditor: function() {
@@ -232,28 +226,34 @@
         const action = event.currentTarget.attributes.name.value;
 
         switch (action) {
+
           case 'link':
             const link = window.prompt('Enter URL link:');
             if (link) document.execCommand('createLink', false, link);
             break;
+
           case 'image':
             this._insertImageFromUrl();
-            this._setBodyTextFromInnerHtml();
+            this.value = this.$.editorBody.innerHTML;
             break;
+
           case 'source-mode':
-            this._toggleSourceMode();
+            if(this.disabled == false) this._toggleSourceMode();
             break;
+
           case 'clear-format':
           editorBody.innerHTML = editorBody.innerText;
             break;
+
           case 'h1':
           case 'h2':
             document.execCommand('formatBlock', false, action);
-            this._setBodyTextFromInnerHtml();
+            this.value = this.$.editorBody.innerHTML;
             break;
+
           default:
             document.execCommand(action, false, null);
-            this._setBodyTextFromInnerHtml();
+            this.value = this.$.editorBody.innerHTML;
             break;
         }
 
@@ -283,55 +283,7 @@
       },
 
       _editorBodyFocusOut: function(event) {
-        this.bodyText = this.$.editorBody.innerHTML;
-      },
-
-     _setBodyTextFromInnerHtml: function() {
-      this.set('bodyText', this.$.editorBody.innerHTML);
-     },
-
-      _disabledChanged: function(newValue, oldValue) {
-        this.toggleClass('disabled', newValue, this);
-
-        if(newValue == true) {
-          this.$.editorBody.setAttribute('contenteditable', false);
-        } else {
-          this.$.editorBody.setAttribute('contenteditable', true);
-        }
-      },
-
-      _toolbarModeChanged: function(newValue, oldValue) {
-        var h1Icon = this.$.h1;
-        var h2Icon = this.$.h2;
-        // verticalBreak is a delimiter between H2 and Bold icons
-        var verticalBreak = this.$.verticalBreak;
-        var linkIcon = this.$.link;
-        var imageIcon = this.$.image;
-        var justifyLeftIcon = this.$.jusitfyLeft;
-        var justifyCenterIcon = this.$.justifyCenter;
-        var justifyRightIcon = this.$.justifyRight;
-
-        if(newValue == 'default') {
-          h1Icon.classList.add('hidden');
-          h2Icon.classList.add('hidden');
-          verticalBreak.classList.add('hidden');
-          linkIcon.classList.add('hidden');
-          imageIcon.classList.add('hidden');
-          justifyLeftIcon.classList.add('hidden');
-          justifyCenterIcon.classList.add('hidden');
-          justifyRightIcon.classList.add('hidden');
-        }
-
-        if(newValue == 'full') {
-          h1Icon.classList.remove('hidden');
-          h2Icon.classList.remove('hidden');
-          verticalBreak.classList.remove('hidden');
-          linkIcon.classList.remove('hidden');
-          imageIcon.classList.remove('hidden');
-          justifyLeftIcon.classList.remove('hidden');
-          justifyCenterIcon.classList.remove('hidden');
-          justifyRightIcon.classList.remove('hidden');
-        }
+        this.value = this.$.editorBody.innerHTML;
       },
 
       _toggleSourceMode: function() {
@@ -340,12 +292,22 @@
         var codemirror = this.$.codemirror;
 
         if(this._codeMirrorHidden == true) {
-          codemirror.value = editorBody.innerHTML;
+          // hide all icons -> show only source-mode icon
+          this._hideAllIcons();
           editorBox.classList.add('noBottomBorder');
           editorBody.classList.add('hidden');
           codemirror.classList.remove('hidden');
           this._codeMirrorHidden = false;
         } else {
+
+          if(this.toolbarMode == 'default') {
+            this._showBasicIcons();
+          }
+
+          if(this.toolbarMode == 'full') {
+            this._showAllIcons();
+          }
+
           editorBox.classList.remove('noBottomBorder');
           editorBody.classList.remove('hidden');
           codemirror.classList.add('hidden');
@@ -358,8 +320,82 @@
       },
 
       _codeMirrorValueChangedHandler: function(event) {
-        this.$.editorBody.innerHTML = event.detail.value;
-        this._setBodyTextFromInnerHtml();
+        this.value = event.detail.value;
+      },
+
+      _valueChanged: function(newValue, oldValue) {
+        if(newValue != oldValue) {
+          this.$.editorBody.innerHTML = newValue;
+        }
+      },
+
+      _toolbarModeChanged: function(newValue, oldValue) {
+        if(newValue == 'default') {
+          if(this._codeMirrorHidden == true || this._codeMirrorHidden == undefined) {
+            this._showBasicIcons();
+          } else {
+            this._hideAllIcons();
+          }
+        }
+
+        if(newValue == 'full') {
+          if(this._codeMirrorHidden == true || this._codeMirrorHidden == undefined) {
+            this._showAllIcons();
+          } else {
+            this._hideAllIcons();
+          }
+        }
+      },
+
+      _disabledChanged: function(newValue, oldValue) {
+        this.toggleClass('disabled', newValue, this);
+
+        if(newValue == true) {
+          this.$.editorBody.setAttribute('contenteditable', false);
+        } else {
+          this.$.editorBody.setAttribute('contenteditable', true);
+        }
+      },
+
+      _allowHtmlSourceEditChanged: function (newValue, oldValue) {
+        if(newValue == false && this._codeMirrorHidden == false) {
+          this._toggleSourceMode();
+        }
+      },
+
+      _showAllIcons: function () {
+        Array.prototype.forEach.call(Polymer.dom(this.$.editorTools).children, function (node) {
+          if(node.name != 'source-mode') {
+            node.classList.remove('hidden');
+          }
+        });
+      },
+
+      _hideAllIcons: function() {
+        Array.prototype.forEach.call(Polymer.dom(this.$.editorTools).children, function (node) {
+          if(node.name != 'source-mode') {
+            node.classList.add('hidden');
+          }
+        });
+      },
+
+      _showBasicIcons: function () {
+        this.$.h1.classList.add('hidden');
+        this.$.h2.classList.add('hidden');
+        this.$.verticalBreak1.classList.add('hidden');
+        this.$.link.classList.add('hidden');
+        this.$.image.classList.add('hidden');
+        this.$.justifyLeft.classList.add('hidden');
+        this.$.justifyCenter.classList.add('hidden');
+        this.$.justifyRight.classList.add('hidden');
+
+        this.$.bold.classList.remove('hidden');
+        this.$.italic.classList.remove('hidden');
+        this.$.underline.classList.remove('hidden');
+        this.$.justifyFull.classList.remove('hidden');
+        this.$.insertUnorderedList.classList.remove('hidden');
+        this.$.insertOrderedList.classList.remove('hidden');
+        this.$.clearFormat.classList.remove('hidden');
       }
 
     });

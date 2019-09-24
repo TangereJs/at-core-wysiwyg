@@ -140,11 +140,11 @@
           </svg>
         </button>
       </div>
-      <div id="editorBody" class="font-body1" contenteditable="true" on-keydown="_handleKeyDown" on-focusout="_editorBodyFocusOut" on-focusin="_editorBodyFocusIn">
+      <div id="editorBody" class="font-body1" contenteditable="true" on-keydown="_handleKeyDown" on-focusout="_editorBodyFocusOut">
       </div>
     </div>
     
-    <at-form-codemirror id="codemirror" class="hidden font-body1" mode="htmlmixed"></at-form-codemirror>
+    <at-form-codemirror id="codemirror" class="hidden font-body1" mode="htmlmixed" on-value-changed="_codeMirrorValueChangedHandler"></at-form-codemirror>
 
 
 
@@ -158,8 +158,7 @@
         bodyText: {
           type: String,
           notify: true,
-          value: '',
-          observer: '_bodyTextChanged'
+          value: ''
         },
 
         toolbarMode: {
@@ -197,7 +196,6 @@
 
         this.bodyText = editorBody.innerHTML;
         this._codeMirrorHidden = true;
-
       },
 
       // public api
@@ -217,10 +215,15 @@
 
       setInnerHtmlValue: function(innerHtmlValue) {
         this.$.editorBody.innerHTML = innerHtmlValue;
+        this._setBodyTextFromInnerHtml();
       },
 
       focusEditor: function() {
-        this.$.editorBody.focus();
+        if(this._codeMirrorHidden == true) {
+          this.$.editorBody.focus();
+        } else {
+          this.$.codemirror.focus();
+        }
       },
 
       // private api
@@ -235,6 +238,7 @@
             break;
           case 'image':
             this._insertImageFromUrl();
+            this._setBodyTextFromInnerHtml();
             break;
           case 'source-mode':
             this._toggleSourceMode();
@@ -245,13 +249,15 @@
           case 'h1':
           case 'h2':
             document.execCommand('formatBlock', false, action);
+            this._setBodyTextFromInnerHtml();
             break;
           default:
             document.execCommand(action, false, null);
+            this._setBodyTextFromInnerHtml();
             break;
         }
 
-        editorBody.focus();
+        this.focusEditor();
       },
 
       _insertImageFromUrl: function () {
@@ -294,34 +300,6 @@
         }
       },
 
-      _toggleSourceMode: function() {
-        var editorBox = this.$.editorBox;
-        var editorBody = this.$.editorBody;
-        var codemirror = this.$.codemirror;
-
-        if(this._codeMirrorHidden == true) {
-          codemirror.value = this.bodyText;
-          editorBox.classList.add('noBottomBorder');
-          editorBody.classList.add('hidden');
-          codemirror.classList.remove('hidden');
-          this._codeMirrorHidden = false;
-        } else {
-          editorBox.classList.remove('noBottomBorder');
-          editorBody.classList.remove('hidden');
-          codemirror.classList.add('hidden');
-          this._codeMirrorHidden = true;
-        }
-
-      },
-
-      _computeHiddenSourceMode: function(allowHtmlSourceEdit) {
-        return result = allowHtmlSourceEdit == true ? false : true;
-      },
-
-      _bodyTextChanged: function(newValue, oldValue) {
-        // TO DO
-      },
-
       _toolbarModeChanged: function(newValue, oldValue) {
         var h1Icon = this.$.h1;
         var h2Icon = this.$.h2;
@@ -354,6 +332,34 @@
           justifyCenterIcon.classList.remove('hidden');
           justifyRightIcon.classList.remove('hidden');
         }
+      },
+
+      _toggleSourceMode: function() {
+        var editorBox = this.$.editorBox;
+        var editorBody = this.$.editorBody;
+        var codemirror = this.$.codemirror;
+
+        if(this._codeMirrorHidden == true) {
+          codemirror.value = editorBody.innerHTML;
+          editorBox.classList.add('noBottomBorder');
+          editorBody.classList.add('hidden');
+          codemirror.classList.remove('hidden');
+          this._codeMirrorHidden = false;
+        } else {
+          editorBox.classList.remove('noBottomBorder');
+          editorBody.classList.remove('hidden');
+          codemirror.classList.add('hidden');
+          this._codeMirrorHidden = true;
+        }
+      },
+
+      _computeHiddenSourceMode: function(allowHtmlSourceEdit) {
+        return result = allowHtmlSourceEdit == true ? false : true;
+      },
+
+      _codeMirrorValueChangedHandler: function(event) {
+        this.$.editorBody.innerHTML = event.detail.value;
+        this._setBodyTextFromInnerHtml();
       }
 
     });

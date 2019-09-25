@@ -206,6 +206,8 @@
       },
 
       _editorBodyFocusOut: function(event) {
+        if(this.value == this.$.editorBody.innerHTML) return;
+        
         this.value = this.$.editorBody.innerHTML;
       },
 
@@ -247,8 +249,10 @@
       },
 
       _valueChanged: function(newValue, oldValue) {
-        if(newValue != oldValue) {
-          this.$.editorBody.innerHTML = newValue;
+        var editorBody = this.$.editorBody;
+        
+        if(newValue != editorBody.innerHTML) {
+          editorBody.innerHTML = newValue;
         }
       },
 
@@ -306,16 +310,17 @@
         this.$.h1.classList.add('hidden');
         this.$.h2.classList.add('hidden');
         this.$.verticalBreak1.classList.add('hidden');
+        this.$.verticalBreak2.classList.add('hidden');
         this.$.link.classList.add('hidden');
         this.$.image.classList.add('hidden');
         this.$.justifyLeft.classList.add('hidden');
         this.$.justifyCenter.classList.add('hidden');
         this.$.justifyRight.classList.add('hidden');
+        this.$.justifyFull.classList.add('hidden');
 
         this.$.bold.classList.remove('hidden');
         this.$.italic.classList.remove('hidden');
         this.$.underline.classList.remove('hidden');
-        this.$.justifyFull.classList.remove('hidden');
         this.$.insertUnorderedList.classList.remove('hidden');
         this.$.insertOrderedList.classList.remove('hidden');
         this.$.clearFormat.classList.remove('hidden');

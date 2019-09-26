@@ -65,7 +65,7 @@
       </div>
     </div>
     
-    <at-form-codemirror id="codemirror" class="hidden font-body1" mode="htmlmixed" disabled="[[disabled]]" value="[[value]]" on-value-changed="_codeMirrorValueChangedHandler"></at-form-codemirror>
+    <at-form-codemirror id="codemirror" class="font-body1" mode="htmlmixed" disabled="[[disabled]]" on-value-changed="_codeMirrorValueChangedHandler"></at-form-codemirror>
 
 
 
@@ -83,7 +83,8 @@
           xgridcols: "12",
           value: "",
           observer: '_valueChanged',
-          title: 'Value'
+          title: 'Value',
+          notify: true
         },
 
         toolbarMode: {
@@ -120,8 +121,8 @@
 
         if (this.value) editorBody.innerText = this.value;
 
-        this.value = editorBody.innerHTML;
-        this._codeMirrorHidden = true;
+        // this.value = editorBody.innerHTML;
+        this.$.codemirror.hide = true;
       },
 
       // public api
@@ -136,7 +137,7 @@
       },
 
       focusEditor: function() {
-        if(this._codeMirrorHidden == true) {
+        if(this.$.codemirror.hide == true) {
           this.$.editorBody.focus();
         } else {
           this.$.codemirror.focus();
@@ -216,13 +217,13 @@
         var editorBody = this.$.editorBody;
         var codemirror = this.$.codemirror;
 
-        if(this._codeMirrorHidden == true) {
+        if(codemirror.hide == true) {
           // hide all icons -> show only source-mode icon
           this._hideAllIcons();
           editorBox.classList.add('noBottomBorder');
           editorBody.classList.add('hidden');
-          codemirror.classList.remove('hidden');
-          this._codeMirrorHidden = false;
+          codemirror.value = this.value;
+          codemirror.hide = false;
         } else {
 
           if(this.toolbarMode == 'default') {
@@ -235,8 +236,7 @@
 
           editorBox.classList.remove('noBottomBorder');
           editorBody.classList.remove('hidden');
-          codemirror.classList.add('hidden');
-          this._codeMirrorHidden = true;
+          codemirror.hide = true;
         }
       },
 
@@ -250,15 +250,24 @@
 
       _valueChanged: function(newValue, oldValue) {
         var editorBody = this.$.editorBody;
-        
-        if(newValue != editorBody.innerHTML) {
+        var codemirror = this.$.codemirror;
+
+        if (newValue != editorBody.innerHTML) {
           editorBody.innerHTML = newValue;
+        }
+
+        if (codemirror.hide == false) {
+          if (codemirror.value != newValue) {
+            codemirror.value = newValue;
+          }
         }
       },
 
       _toolbarModeChanged: function(newValue, oldValue) {
+        var codemirror = this.$.codemirror;
+        
         if(newValue == 'default') {
-          if(this._codeMirrorHidden == true || this._codeMirrorHidden == undefined) {
+          if(codemirror.hide == true || codemirror.hide == undefined) {
             this._showBasicIcons();
           } else {
             this._hideAllIcons();
@@ -266,7 +275,7 @@
         }
 
         if(newValue == 'full') {
-          if(this._codeMirrorHidden == true || this._codeMirrorHidden == undefined) {
+          if(codemirror.hide == true || codemirror.hide == undefined) {
             this._showAllIcons();
           } else {
             this._hideAllIcons();
@@ -285,7 +294,7 @@
       },
 
       _allowHtmlSourceEditChanged: function (newValue, oldValue) {
-        if(newValue == false && this._codeMirrorHidden == false) {
+        if(newValue == false && this.$.codemirror.hide == false) {
           this._toggleSourceMode();
         }
       },

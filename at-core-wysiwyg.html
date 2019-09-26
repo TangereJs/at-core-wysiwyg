@@ -1,6 +1,8 @@
 <link rel="import" href="../at-carbon-icon-button/at-carbon-icon-button.html">
 <link rel="import" href="../at-core-style-classes/at-core-style-classes.html">
 <link rel="import" href="../at-form-codemirror/at-form-codemirror.html">
+<link rel="import" href="../at-i18n/at-i18n-behavior.html">
+<link rel="import" href="../at-form-behaviors/at-form-behaviors.html">
 
 <dom-module id="at-core-wysiwyg">
   <template>
@@ -74,6 +76,7 @@
     Polymer({
 
       is: 'at-core-wysiwyg',
+      behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formUIGeneric, Tangere.behaviors.AtFormHtmlInputValidation],
       
       properties: {
         value: {
@@ -83,8 +86,7 @@
           xgridcols: "12",
           value: "",
           observer: '_valueChanged',
-          title: 'Value',
-          notify: true
+          title: 'Value'
         },
 
         toolbarMode: {
@@ -205,9 +207,9 @@
         }
       },
 
-      _editorBodyFocusOut: function(event) {
-        if(this.value == this.$.editorBody.innerHTML) return;
-        
+      _editorBodyFocusOut: function (event) {
+        if (this.value == this.$.editorBody.innerHTML) return;
+
         this.value = this.$.editorBody.innerHTML;
       },
 
@@ -262,6 +264,8 @@
             codemirror.value = newValue;
           }
         }
+
+        this._fireValueChangedEvent(this.value);
       },
 
       _toolbarModeChanged: function(newValue, oldValue) {

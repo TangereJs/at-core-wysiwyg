@@ -74,7 +74,7 @@
     Polymer({
 
       is: 'at-core-wysiwyg',
-
+      
       properties: {
         value: {
           type: String,
@@ -121,7 +121,6 @@
 
         if (this.value) editorBody.innerText = this.value;
 
-        // this.value = editorBody.innerHTML;
         this.$.codemirror.hide = true;
       },
 
@@ -245,6 +244,8 @@
       },
 
       _codeMirrorValueChangedHandler: function(event) {
+        if(this.value == event.detail.value) return;
+
         this.value = event.detail.value;
       },
 
@@ -294,6 +295,7 @@
       },
 
       _allowHtmlSourceEditChanged: function (newValue, oldValue) {
+        // hides source mode when allowHtmlSourceEdit is false
         if(newValue == false && this.$.codemirror.hide == false) {
           this._toggleSourceMode();
         }

@@ -1,8 +1,6 @@
 <link rel="import" href="../at-carbon-icon-button/at-carbon-icon-button.html">
 <link rel="import" href="../at-core-style-classes/at-core-style-classes.html">
 <link rel="import" href="../at-form-codemirror/at-form-codemirror.html">
-<link rel="import" href="../at-i18n/at-i18n-behavior.html">
-<link rel="import" href="../at-form-behaviors/at-form-behaviors.html">
 
 <dom-module id="at-core-wysiwyg">
   <template>
@@ -76,7 +74,6 @@
     Polymer({
 
       is: 'at-core-wysiwyg',
-      behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formUIGeneric, Tangere.behaviors.AtFormHtmlInputValidation],
       
       properties: {
         value: {
@@ -182,6 +179,10 @@
             break;
         }
 
+        if(action != 'link' && action != 'sourceMode') {
+          this.fire('value-changed', { value: this.value }, { bubbles: false, composed: false });
+        }
+
         this.focusEditor();
       },
 
@@ -211,6 +212,7 @@
         if (this.value == this.$.editorBody.innerHTML) return;
 
         this.value = this.$.editorBody.innerHTML;
+        this.fire('value-changed', { value: this.value }, { bubbles: false, composed: false });
       },
 
       _toggleSourceMode: function() {
@@ -246,9 +248,14 @@
       },
 
       _codeMirrorValueChangedHandler: function(event) {
+        // For some reason, the event in at-form-behaviors continues to propagate past at-core-wysiwyg element even if bubbles is set to false.
+        // It can be prevented by setting the composed flag in at-form-behaviors to false when an event is fired, or by stopping event propagation here.
+        event.stopPropagation();
+
         if(this.value == event.detail.value) return;
 
         this.value = event.detail.value;
+        this.fire('value-changed', { value: this.value }, { bubbles: false, composed: false });
       },
 
       _valueChanged: function(newValue, oldValue) {
@@ -264,8 +271,6 @@
             codemirror.value = newValue;
           }
         }
-
-        this._fireValueChangedEvent(this.value);
       },
 
       _toolbarModeChanged: function(newValue, oldValue) {

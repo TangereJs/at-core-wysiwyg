@@ -118,21 +118,9 @@
           this.listen(element, 'tap', '_actionPressed');
         }, this);
 
-        if (this.value) editorBody.innerText = this.value;
-
         this.$.codemirror.hide = true;
       },
 
-      // public api
-      get: function() {
-        var trimmedHtmlString = this.$.editorBody.innerHTML.trim();
-
-        if(trimmedHtmlString == "") {
-          return "";
-        } else {
-          return this.$.editorBody.innerHTML;
-        }
-      },
 
       focusEditor: function() {
         if(this.$.codemirror.hide == true) {

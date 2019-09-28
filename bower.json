@@ -28,6 +28,6 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1"
   },
-  "version": "0.0.1.152",
+  "version": "0.0.1.162",
   "private": true
 }
